@@ -1,3 +1,58 @@
+import type { Metadata } from 'next'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
+import { Analytics } from '@vercel/analytics/next'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: 'v0 App',
+  description: 'Created with v0',
+  generator: 'v0.app',
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        {children}
+        <Analytics />
+      {/* v0 – built-with badge */}
+  <div dangerouslySetInnerHTML={{ __html: `<div id="v0-built-with-button-f9467208-a1fd-4d2e-ae4f-d0d819373fb3" style="
+border: 1px solid hsl(0deg 0% 100% / 12%);
+position: fixed;
+bottom: 24px;
+right: 24px;
+z-index: 1000;
+background: #121212;
+color: white;
+padding: 8px 12px;
+border-radius: 8px;
+font-weight: 400;
+font-size: 14px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+letter-spacing: 0.02em;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+gap: 4px;
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+">
+<a
+  href="https://v0.app/chat/api/open/built-with-v0/b_IqRzjNMF1sA"
+  target="_blank"
+  rel="noopener"
+  style="
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  "
+>
   Built with
   <svg
     fill="currentColor"
