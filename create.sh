@@ -45,7 +45,7 @@ touch public/placeholder.svg
 touch styles/globals.css
 
 # Root files
-touch .gitignore
+touch .gitignorefetch
 touch bun.lock
 touch components.json
 touch next.config.mjs
