@@ -13,6 +13,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "axios": "^1.13.2",
     "next": "16.0.1",
     "react": "19.2.0",
     "react-dom": "19.2.0"
@@ -25,6 +26,9 @@
     "concurrently": "^9.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "openapi-fetch": "^0.15.0",
+    "openapi-typescript": "^7.10.1",
+    "orval": "^7.13.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
