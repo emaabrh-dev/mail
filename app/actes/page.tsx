@@ -1,9 +1,12 @@
 // app/actes/page.tsx
 
-import { getActsApiActsGet } from "@/lib/client/aeroRh";
+import { getActes } from "@/lib/client/endpoints/actes";
+
 
 export default async function ActesPage() {
-  const actes = await getActsApiActsGet();
+  const { readActesApiActesGet } = getActes(); // destructure from the returned object
+  const response = await readActesApiActesGet();
+  const actes = response.data;
 
   return (
     <div className="p-6">
