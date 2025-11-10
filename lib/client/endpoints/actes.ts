@@ -4,18 +4,13 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   ActeCreate,
   ActeRead,
   ActeUpdate
 } from '../schemas';
 
+import { customAxios } from '../axiosInstance';
 
 
 
@@ -24,59 +19,66 @@ import type {
 /**
  * @summary Read Actes
  */
-const readActesApiActesGet = <TData = AxiosResponse<ActeRead[]>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/actes/`,options
-    );
-  }
-/**
+const readActesApiActesGet = (
+    
+ ) => {
+      return customAxios<ActeRead[]>(
+      {url: `/api/actes/`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Create Acte
  */
-const createActeApiActesPost = <TData = AxiosResponse<ActeRead>>(
-    acteCreate: ActeCreate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/actes/`,
-      acteCreate,options
-    );
-  }
-/**
+const createActeApiActesPost = (
+    acteCreate: ActeCreate,
+ ) => {
+      return customAxios<ActeRead>(
+      {url: `/api/actes/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: acteCreate
+    },
+      );
+    }
+  /**
  * @summary Read Acte
  */
-const readActeApiActesActeIdGet = <TData = AxiosResponse<ActeRead>>(
-    acteId: number, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/actes/${acteId}`,options
-    );
-  }
-/**
+const readActeApiActesActeIdGet = (
+    acteId: number,
+ ) => {
+      return customAxios<ActeRead>(
+      {url: `/api/actes/${acteId}`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Update Acte
  */
-const updateActeApiActesActeIdPatch = <TData = AxiosResponse<ActeRead>>(
+const updateActeApiActesActeIdPatch = (
     acteId: number,
-    acteUpdate: ActeUpdate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.patch(
-      `/api/actes/${acteId}`,
-      acteUpdate,options
-    );
-  }
-/**
+    acteUpdate: ActeUpdate,
+ ) => {
+      return customAxios<ActeRead>(
+      {url: `/api/actes/${acteId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: acteUpdate
+    },
+      );
+    }
+  /**
  * @summary Delete Acte
  */
-const deleteActeApiActesActeIdDelete = <TData = AxiosResponse<unknown>>(
-    acteId: number, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.delete(
-      `/api/actes/${acteId}`,options
-    );
-  }
-return {readActesApiActesGet,createActeApiActesPost,readActeApiActesActeIdGet,updateActeApiActesActeIdPatch,deleteActeApiActesActeIdDelete}};
-export type ReadActesApiActesGetResult = AxiosResponse<ActeRead[]>
-export type CreateActeApiActesPostResult = AxiosResponse<ActeRead>
-export type ReadActeApiActesActeIdGetResult = AxiosResponse<ActeRead>
-export type UpdateActeApiActesActeIdPatchResult = AxiosResponse<ActeRead>
-export type DeleteActeApiActesActeIdDeleteResult = AxiosResponse<unknown>
+const deleteActeApiActesActeIdDelete = (
+    acteId: number,
+ ) => {
+      return customAxios<unknown>(
+      {url: `/api/actes/${acteId}`, method: 'DELETE'
+    },
+      );
+    }
+  return {readActesApiActesGet,createActeApiActesPost,readActeApiActesActeIdGet,updateActeApiActesActeIdPatch,deleteActeApiActesActeIdDelete}};
+export type ReadActesApiActesGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getActes>['readActesApiActesGet']>>>
+export type CreateActeApiActesPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getActes>['createActeApiActesPost']>>>
+export type ReadActeApiActesActeIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getActes>['readActeApiActesActeIdGet']>>>
+export type UpdateActeApiActesActeIdPatchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getActes>['updateActeApiActesActeIdPatch']>>>
+export type DeleteActeApiActesActeIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getActes>['deleteActeApiActesActeIdDelete']>>>

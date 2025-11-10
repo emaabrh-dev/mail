@@ -4,12 +4,7 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
+import { customAxios } from '../axiosInstance';
 
 
 
@@ -18,11 +13,12 @@ import type {
 /**
  * @summary Read Root
  */
-const readRootGet = <TData = AxiosResponse<unknown>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/`,options
-    );
-  }
-return {}};
+const readRootGet = (
+    
+ ) => {
+      return customAxios<unknown>(
+      {url: `/`, method: 'GET'
+    },
+      );
+    }
+  return {}};

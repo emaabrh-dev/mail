@@ -4,18 +4,13 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   AuthResponse,
   LoginRequest,
   RegisterRequest
 } from '../schemas';
 
+import { customAxios } from '../axiosInstance';
 
 
 
@@ -24,25 +19,29 @@ import type {
 /**
  * @summary Login
  */
-const loginApiAuthLoginPost = <TData = AxiosResponse<AuthResponse>>(
-    loginRequest: LoginRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/auth/login`,
-      loginRequest,options
-    );
-  }
-/**
+const loginApiAuthLoginPost = (
+    loginRequest: LoginRequest,
+ ) => {
+      return customAxios<AuthResponse>(
+      {url: `/api/auth/login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: loginRequest
+    },
+      );
+    }
+  /**
  * @summary Register
  */
-const registerApiAuthRegisterPost = <TData = AxiosResponse<AuthResponse>>(
-    registerRequest: RegisterRequest, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/auth/register`,
-      registerRequest,options
-    );
-  }
-return {loginApiAuthLoginPost,registerApiAuthRegisterPost}};
-export type LoginApiAuthLoginPostResult = AxiosResponse<AuthResponse>
-export type RegisterApiAuthRegisterPostResult = AxiosResponse<AuthResponse>
+const registerApiAuthRegisterPost = (
+    registerRequest: RegisterRequest,
+ ) => {
+      return customAxios<AuthResponse>(
+      {url: `/api/auth/register`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: registerRequest
+    },
+      );
+    }
+  return {loginApiAuthLoginPost,registerApiAuthRegisterPost}};
+export type LoginApiAuthLoginPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['loginApiAuthLoginPost']>>>
+export type RegisterApiAuthRegisterPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['registerApiAuthRegisterPost']>>>

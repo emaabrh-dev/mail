@@ -4,18 +4,13 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   UserSessionCreate,
   UserSessionRead,
   UserSessionUpdate
 } from '../schemas';
 
+import { customAxios } from '../axiosInstance';
 
 
 
@@ -24,82 +19,92 @@ import type {
 /**
  * @summary Create Session
  */
-const createSessionApiSessionsPost = <TData = AxiosResponse<UserSessionRead>>(
-    userSessionCreate: UserSessionCreate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/sessions`,
-      userSessionCreate,options
-    );
-  }
-/**
+const createSessionApiSessionsPost = (
+    userSessionCreate: UserSessionCreate,
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userSessionCreate
+    },
+      );
+    }
+  /**
  * @summary Create Session 
  */
-const createSessionApiSessionsPost = <TData = AxiosResponse<UserSessionRead>>(
-    userSessionCreate: UserSessionCreate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/sessions/`,
-      userSessionCreate,options
-    );
-  }
-/**
+const createSessionApiSessionsPost = (
+    userSessionCreate: UserSessionCreate,
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userSessionCreate
+    },
+      );
+    }
+  /**
  * @summary Get Current Session
  */
-const getCurrentSessionApiSessionsCurrentGet = <TData = AxiosResponse<UserSessionRead>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/sessions/current`,options
-    );
-  }
-/**
+const getCurrentSessionApiSessionsCurrentGet = (
+    
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions/current`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Get Active Sessions
  */
-const getActiveSessionsApiSessionsActiveUserIdGet = <TData = AxiosResponse<UserSessionRead[]>>(
-    userId: number, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/sessions/active/${userId}`,options
-    );
-  }
-/**
+const getActiveSessionsApiSessionsActiveUserIdGet = (
+    userId: number,
+ ) => {
+      return customAxios<UserSessionRead[]>(
+      {url: `/api/sessions/active/${userId}`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Get Session By Id
  */
-const getSessionByIdApiSessionsSessionIdGet = <TData = AxiosResponse<UserSessionRead>>(
-    sessionId: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/sessions/${sessionId}`,options
-    );
-  }
-/**
+const getSessionByIdApiSessionsSessionIdGet = (
+    sessionId: string,
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions/${sessionId}`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Update Session
  */
-const updateSessionApiSessionsSessionIdPatch = <TData = AxiosResponse<UserSessionRead>>(
+const updateSessionApiSessionsSessionIdPatch = (
     sessionId: string,
-    userSessionUpdate: UserSessionUpdate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.patch(
-      `/api/sessions/${sessionId}`,
-      userSessionUpdate,options
-    );
-  }
-/**
+    userSessionUpdate: UserSessionUpdate,
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions/${sessionId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: userSessionUpdate
+    },
+      );
+    }
+  /**
  * @summary Deactivate Session
  */
-const deactivateSessionApiSessionsSessionIdDelete = <TData = AxiosResponse<UserSessionRead>>(
-    sessionId: string, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.delete(
-      `/api/sessions/${sessionId}`,options
-    );
-  }
-return {createSessionApiSessionsPost,createSessionApiSessionsPost,getCurrentSessionApiSessionsCurrentGet,getActiveSessionsApiSessionsActiveUserIdGet,getSessionByIdApiSessionsSessionIdGet,updateSessionApiSessionsSessionIdPatch,deactivateSessionApiSessionsSessionIdDelete}};
-export type CreateSessionApiSessionsPostResult = AxiosResponse<UserSessionRead>
-export type CreateSessionApiSessionsPostResult = AxiosResponse<UserSessionRead>
-export type GetCurrentSessionApiSessionsCurrentGetResult = AxiosResponse<UserSessionRead>
-export type GetActiveSessionsApiSessionsActiveUserIdGetResult = AxiosResponse<UserSessionRead[]>
-export type GetSessionByIdApiSessionsSessionIdGetResult = AxiosResponse<UserSessionRead>
-export type UpdateSessionApiSessionsSessionIdPatchResult = AxiosResponse<UserSessionRead>
-export type DeactivateSessionApiSessionsSessionIdDeleteResult = AxiosResponse<UserSessionRead>
+const deactivateSessionApiSessionsSessionIdDelete = (
+    sessionId: string,
+ ) => {
+      return customAxios<UserSessionRead>(
+      {url: `/api/sessions/${sessionId}`, method: 'DELETE'
+    },
+      );
+    }
+  return {createSessionApiSessionsPost,createSessionApiSessionsPost,getCurrentSessionApiSessionsCurrentGet,getActiveSessionsApiSessionsActiveUserIdGet,getSessionByIdApiSessionsSessionIdGet,updateSessionApiSessionsSessionIdPatch,deactivateSessionApiSessionsSessionIdDelete}};
+export type CreateSessionApiSessionsPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['createSessionApiSessionsPost']>>>
+export type CreateSessionApiSessionsPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['createSessionApiSessionsPost']>>>
+export type GetCurrentSessionApiSessionsCurrentGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['getCurrentSessionApiSessionsCurrentGet']>>>
+export type GetActiveSessionsApiSessionsActiveUserIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['getActiveSessionsApiSessionsActiveUserIdGet']>>>
+export type GetSessionByIdApiSessionsSessionIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['getSessionByIdApiSessionsSessionIdGet']>>>
+export type UpdateSessionApiSessionsSessionIdPatchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['updateSessionApiSessionsSessionIdPatch']>>>
+export type DeactivateSessionApiSessionsSessionIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getSessions>['deactivateSessionApiSessionsSessionIdDelete']>>>

@@ -4,12 +4,6 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import axios from 'axios';
-import type {
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   CheckEmailApiUsersCheckEmailGetParams,
   CheckPhoneApiUsersCheckPhoneGetParams,
@@ -19,6 +13,7 @@ import type {
   UserUpdate
 } from '../schemas';
 
+import { customAxios } from '../axiosInstance';
 
 
 
@@ -27,98 +22,105 @@ import type {
 /**
  * @summary Check Username
  */
-const checkUsernameApiUsersCheckUsernameGet = <TData = AxiosResponse<unknown>>(
-    params: CheckUsernameApiUsersCheckUsernameGetParams, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/users/check/username`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-/**
+const checkUsernameApiUsersCheckUsernameGet = (
+    params: CheckUsernameApiUsersCheckUsernameGetParams,
+ ) => {
+      return customAxios<unknown>(
+      {url: `/api/users/check/username`, method: 'GET',
+        params
+    },
+      );
+    }
+  /**
  * @summary Check Email
  */
-const checkEmailApiUsersCheckEmailGet = <TData = AxiosResponse<unknown>>(
-    params: CheckEmailApiUsersCheckEmailGetParams, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/users/check/email`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-/**
+const checkEmailApiUsersCheckEmailGet = (
+    params: CheckEmailApiUsersCheckEmailGetParams,
+ ) => {
+      return customAxios<unknown>(
+      {url: `/api/users/check/email`, method: 'GET',
+        params
+    },
+      );
+    }
+  /**
  * @summary Check Phone
  */
-const checkPhoneApiUsersCheckPhoneGet = <TData = AxiosResponse<unknown>>(
-    params: CheckPhoneApiUsersCheckPhoneGetParams, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/users/check/phone`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-/**
+const checkPhoneApiUsersCheckPhoneGet = (
+    params: CheckPhoneApiUsersCheckPhoneGetParams,
+ ) => {
+      return customAxios<unknown>(
+      {url: `/api/users/check/phone`, method: 'GET',
+        params
+    },
+      );
+    }
+  /**
  * @summary List Users
  */
-const listUsersApiUsersGet = <TData = AxiosResponse<UserRead[]>>(
-     options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/users/`,options
-    );
-  }
-/**
+const listUsersApiUsersGet = (
+    
+ ) => {
+      return customAxios<UserRead[]>(
+      {url: `/api/users/`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Create User Route
  */
-const createUserRouteApiUsersPost = <TData = AxiosResponse<UserRead>>(
-    userCreate: UserCreate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.post(
-      `/api/users/`,
-      userCreate,options
-    );
-  }
-/**
+const createUserRouteApiUsersPost = (
+    userCreate: UserCreate,
+ ) => {
+      return customAxios<UserRead>(
+      {url: `/api/users/`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userCreate
+    },
+      );
+    }
+  /**
  * @summary Read User
  */
-const readUserApiUsersUserIdGet = <TData = AxiosResponse<UserRead>>(
-    userId: number, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.get(
-      `/api/users/${userId}`,options
-    );
-  }
-/**
+const readUserApiUsersUserIdGet = (
+    userId: number,
+ ) => {
+      return customAxios<UserRead>(
+      {url: `/api/users/${userId}`, method: 'GET'
+    },
+      );
+    }
+  /**
  * @summary Update User Route
  */
-const updateUserRouteApiUsersUserIdPatch = <TData = AxiosResponse<UserRead>>(
+const updateUserRouteApiUsersUserIdPatch = (
     userId: number,
-    userUpdate: UserUpdate, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.patch(
-      `/api/users/${userId}`,
-      userUpdate,options
-    );
-  }
-/**
+    userUpdate: UserUpdate,
+ ) => {
+      return customAxios<UserRead>(
+      {url: `/api/users/${userId}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: userUpdate
+    },
+      );
+    }
+  /**
  * @summary Delete User Route
  */
-const deleteUserRouteApiUsersUserIdDelete = <TData = AxiosResponse<unknown>>(
-    userId: number, options?: AxiosRequestConfig
- ): Promise<TData> => {
-    return axios.delete(
-      `/api/users/${userId}`,options
-    );
-  }
-return {checkUsernameApiUsersCheckUsernameGet,checkEmailApiUsersCheckEmailGet,checkPhoneApiUsersCheckPhoneGet,listUsersApiUsersGet,createUserRouteApiUsersPost,readUserApiUsersUserIdGet,updateUserRouteApiUsersUserIdPatch,deleteUserRouteApiUsersUserIdDelete}};
-export type CheckUsernameApiUsersCheckUsernameGetResult = AxiosResponse<unknown>
-export type CheckEmailApiUsersCheckEmailGetResult = AxiosResponse<unknown>
-export type CheckPhoneApiUsersCheckPhoneGetResult = AxiosResponse<unknown>
-export type ListUsersApiUsersGetResult = AxiosResponse<UserRead[]>
-export type CreateUserRouteApiUsersPostResult = AxiosResponse<UserRead>
-export type ReadUserApiUsersUserIdGetResult = AxiosResponse<UserRead>
-export type UpdateUserRouteApiUsersUserIdPatchResult = AxiosResponse<UserRead>
-export type DeleteUserRouteApiUsersUserIdDeleteResult = AxiosResponse<unknown>
+const deleteUserRouteApiUsersUserIdDelete = (
+    userId: number,
+ ) => {
+      return customAxios<unknown>(
+      {url: `/api/users/${userId}`, method: 'DELETE'
+    },
+      );
+    }
+  return {checkUsernameApiUsersCheckUsernameGet,checkEmailApiUsersCheckEmailGet,checkPhoneApiUsersCheckPhoneGet,listUsersApiUsersGet,createUserRouteApiUsersPost,readUserApiUsersUserIdGet,updateUserRouteApiUsersUserIdPatch,deleteUserRouteApiUsersUserIdDelete}};
+export type CheckUsernameApiUsersCheckUsernameGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['checkUsernameApiUsersCheckUsernameGet']>>>
+export type CheckEmailApiUsersCheckEmailGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['checkEmailApiUsersCheckEmailGet']>>>
+export type CheckPhoneApiUsersCheckPhoneGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['checkPhoneApiUsersCheckPhoneGet']>>>
+export type ListUsersApiUsersGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['listUsersApiUsersGet']>>>
+export type CreateUserRouteApiUsersPostResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['createUserRouteApiUsersPost']>>>
+export type ReadUserApiUsersUserIdGetResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['readUserApiUsersUserIdGet']>>>
+export type UpdateUserRouteApiUsersUserIdPatchResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['updateUserRouteApiUsersUserIdPatch']>>>
+export type DeleteUserRouteApiUsersUserIdDeleteResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getUsers>['deleteUserRouteApiUsersUserIdDelete']>>>
