@@ -1,68 +1,148 @@
-// app/actes/page.tsx
+"use client";
 
+import { useState, useEffect } from "react";
 import { getActes } from "@/lib/client/endpoints/actes";
+import {
+  Box,
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TablePagination,
+  Typography,
+  Link as MuiLink,
+} from "@mui/material";
+import Link from "next/link";
 
+interface Acte {
+  id: number;
+  numero: string;
+  objet: string;
+  type_acte: string;
+  statut: string;
+}
 
-export default async function ActesPage() {
-  const { readActesApiActesGet } = getActes(); // destructure from the returned object
-  const response = await readActesApiActesGet();
-  const actes = response.data;
+export default function ActesPage() {
+  const [actes, setActes] = useState<Acte[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  useEffect(() => {
+    async function fetchActes() {
+      const { readActesApiActesGet } = getActes();
+      const response = await readActesApiActesGet();
+      setActes(response.data);
+    }
+
+    fetchActes();
+  }, []);
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Actes Administratifs</h1>
+    <Box p={4}>
+      <Typography variant="h4" gutterBottom>
+        Actes Administratifs
+      </Typography>
 
-      <div className="overflow-x-auto border rounded-lg shadow-sm">
-        <table className="min-w-full border-collapse">
-          <thead className="bg-gray-100 border-b">
-            <tr>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">ID</th>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">Numéro</th>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">Objet</th>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">Type</th>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">Statut</th>
-              <th className="p-3 text-left text-sm font-medium text-gray-700">Actions</th>
-            </tr>
-          </thead>
+      <TableContainer component={Paper} sx={{ mb: 4 }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Numéro</TableCell>
+              <TableCell>Objet</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Statut</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
 
-          <tbody>
-            {actes?.map((item) => (
-              <tr key={item.id} className="border-b hover:bg-gray-50">
-                <td className="p-3">{item.id}</td>
-                <td className="p-3">{item.numero}</td>
-                <td className="p-3">{item.objet}</td>
-                <td className="p-3">{item.type_acte}</td>
-                <td className="p-3">{item.statut}</td>
-                <td className="p-3">
-                  <a
-                    href={`/actes/${item.id}`}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Voir
-                  </a>
-                </td>
-              </tr>
-            ))}
-
-            {(!actes || actes.length === 0) && (
-              <tr>
-                <td colSpan={6} className="p-4 text-center text-gray-500">
+          <TableBody>
+            {actes.length > 0 ? (
+              actes
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((item) => (
+                  <TableRow key={item.id} hover>
+                    <TableCell>{item.id}</TableCell>
+                    <TableCell>{item.numero}</TableCell>
+                    <TableCell>{item.objet}</TableCell>
+                    <TableCell>{item.type_acte}</TableCell>
+                    <TableCell>{item.statut}</TableCell>
+                    <TableCell>
+                      <MuiLink
+                        component={Link}
+                        href={`/actes/${item.id}`}
+                        underline="hover"
+                        color="primary"
+                      >
+                        Voir
+                      </MuiLink>
+                      {" | "}
+                      <Button
+                        size="small"
+                        color="secondary"
+                        variant="outlined"
+                        sx={{ ml: 1 }}
+                      >
+                        Edit
+                      </Button>
+                      {" | "}
+                      <Button
+                        size="small"
+                        color="error"
+                        variant="outlined"
+                        sx={{ ml: 1 }}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={6} align="center">
                   Aucun acte trouvé.
-                </td>
-              </tr>
+                </TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
-      </div>
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-      <div className="mt-6">
-        <a
+      <TablePagination
+        component="div"
+        count={actes.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[5, 10, 25]}
+      />
+
+      <Box mt={4}>
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
           href="/actes/nouveau"
-          className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           + Créer un acte
-        </a>
-      </div>
-    </div>
+        </Button>
+      </Box>
+    </Box>
   );
 }
