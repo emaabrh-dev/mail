@@ -4,10 +4,10 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { UserSessionCreateIpAddress } from './userSessionCreateIpAddress';
-import type { UserSessionCreateUserAgent } from './userSessionCreateUserAgent';
-import type { UserSessionCreateCreatedAt } from './userSessionCreateCreatedAt';
-import type { UserSessionCreateLastActive } from './userSessionCreateLastActive';
+import type { UserSessionCreateIpAddress } from "./userSessionCreateIpAddress";
+import type { UserSessionCreateUserAgent } from "./userSessionCreateUserAgent";
+import type { UserSessionCreateCreatedAt } from "./userSessionCreateCreatedAt";
+import type { UserSessionCreateLastActive } from "./userSessionCreateLastActive";
 
 export interface UserSessionCreate {
   identifier: string;

@@ -6,5 +6,5 @@
  */
 
 export type CheckPhoneApiUsersCheckPhoneGetParams = {
-phone: string;
+  phone: string;
 };

@@ -1,39 +1,58 @@
-// scripts/generate-acte-runtime.ts
-import { Project } from "ts-morph";
-import { writeFileSync } from "fs";
+import { Project, Type, ts } from "ts-morph";
+import fs, { writeFileSync } from "fs";
 import path from "path";
 
-// Path to your interface file
-const inputPath = path.resolve("lib/client/schemas/acteCreate.ts");
+const project = new Project({ tsConfigFilePath: "tsconfig.json" });
+const ph = path.resolve("lib/client/schemas/acteCreate.ts")
 
-// Output runtime file
-const outputPath = path.resolve("lib/client/schemas/acteCreate.runtime.ts");
+if (!fs.existsSync(ph)) {
+  console.warn('Schema file not found, skipping...');
+}else {
+  const sourceFile = project.addSourceFileAtPath(ph);
+  const iface = sourceFile.getInterfaceOrThrow("ActeCreate");
 
-const project = new Project({
-  tsConfigFilePath: "tsconfig.json",
-});
+  // Recursively resolve type aliases
+  function resolveType(type: Type): string {
+    // Handle union, intersection, or literal types
+    if (type.isUnion()) {
+      return type.getUnionTypes().map(resolveType).join(" | ");
+    }
+    if (type.isIntersection()) {
+      return type.getIntersectionTypes().map(resolveType).join(" & ");
+    }
 
-// Load the interface file
-const sourceFile = project.addSourceFileAtPath(inputPath);
+    // Resolve type alias
+    const aliasSymbol = type.getAliasSymbol();
+    if (aliasSymbol) {
+      const decl = aliasSymbol.getDeclarations()[0];
+      const declType = decl.getType();
+      return resolveType(declType);
+    }
 
-// Get the interface
-const iface = sourceFile.getInterfaceOrThrow("ActeCreate");
+    // Resolve array types
+    if (type.isArray()) {
+      const elemType = type.getArrayElementTypeOrThrow();
+      return `${resolveType(elemType)}[]`;
+    }
 
-// Extract properties
-const properties = iface.getProperties().map((p) => p.getName());
+    // Otherwise, return primitive name
+    return type.getText();
+  }
 
-// Generate output file content
-const output = `
-// AUTO-GENERATED — DO NOT EDIT
-// Generated using ts-morph
+  const properties = iface.getProperties().map((p) => ({
+    key: p.getName(),
+    type: resolveType(p.getType()),
+  }));
 
-import type { ActeCreate } from "./acteCreate";
+  const outputPath = path.resolve("lib/client/schemas/acteCreate.runtime.ts");
+  writeFileSync(
+    outputPath,
+    `// AUTO-GENERATED — DO NOT EDIT
+  export const acteCreateFields = [
+  ${properties.map((p) => `  { key: "${p.key}", type: "${p.type}" },`).join("\n")}
+  ] as const;
+  `
+  );
 
-export const acteCreateKeys = [
-${properties.map((p) => `  "${p}",`).join("\n")}
-] as const satisfies readonly (keyof ActeCreate)[];
-`;
-
-writeFileSync(outputPath, output);
-
-console.log("acteCreate.runtime.ts generated successfully!");
+  console.log("✅ acteCreate.runtime.ts generated with fully resolved types!");
+}

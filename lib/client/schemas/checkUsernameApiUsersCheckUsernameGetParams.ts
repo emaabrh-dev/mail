@@ -6,5 +6,5 @@
  */
 
 export type CheckUsernameApiUsersCheckUsernameGetParams = {
-username: string;
+  username: string;
 };

@@ -6,5 +6,5 @@
  */
 
 export type CheckEmailApiUsersCheckEmailGetParams = {
-email: string;
+  email: string;
 };

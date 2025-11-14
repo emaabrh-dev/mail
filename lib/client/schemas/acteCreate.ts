@@ -4,33 +4,33 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { ActeCreateObjet } from './acteCreateObjet';
-import type { ActeCreateTypeActe } from './acteCreateTypeActe';
-import type { ActeCreateDescription } from './acteCreateDescription';
-import type { ActeCreateDateCreation } from './acteCreateDateCreation';
-import type { ActeCreateDateEntreeVigueur } from './acteCreateDateEntreeVigueur';
-import type { ActeCreateDateExpiration } from './acteCreateDateExpiration';
-import type { ActeCreateAuteur } from './acteCreateAuteur';
-import type { ActeCreateBaseLegale } from './acteCreateBaseLegale';
-import type { ActeCreatePublicCible } from './acteCreatePublicCible';
-import type { ActeCreateDomaineApplication } from './acteCreateDomaineApplication';
-import type { ActeCreateLieuApplication } from './acteCreateLieuApplication';
-import type { ActeCreateTimbre } from './acteCreateTimbre';
-import type { ActeCreateClassification } from './acteCreateClassification';
-import type { ActeCreateMotsCles } from './acteCreateMotsCles';
-import type { ActeCreateStatut } from './acteCreateStatut';
-import type { ActeCreateActeModifiePar } from './acteCreateActeModifiePar';
-import type { ActeCreateSignataires } from './acteCreateSignataires';
-import type { ActeCreateVersion } from './acteCreateVersion';
-import type { ActeCreateFichierAssocie } from './acteCreateFichierAssocie';
-import type { ActeCreateDateEnregistrement } from './acteCreateDateEnregistrement';
-import type { ActeCreateUtilisateurModification } from './acteCreateUtilisateurModification';
-import type { ActeCreateActesReferences } from './acteCreateActesReferences';
-import type { ActeCreateActesApplications } from './acteCreateActesApplications';
-import type { ActeCreateActesModifies } from './acteCreateActesModifies';
-import type { ActeCreateActesModificateurs } from './acteCreateActesModificateurs';
-import type { ActeCreateActesEnfants } from './acteCreateActesEnfants';
-import type { ActeCreateActeOriginal } from './acteCreateActeOriginal';
+import type { ActeCreateObjet } from "./acteCreateObjet";
+import type { ActeCreateTypeActe } from "./acteCreateTypeActe";
+import type { ActeCreateDescription } from "./acteCreateDescription";
+import type { ActeCreateDateCreation } from "./acteCreateDateCreation";
+import type { ActeCreateDateEntreeVigueur } from "./acteCreateDateEntreeVigueur";
+import type { ActeCreateDateExpiration } from "./acteCreateDateExpiration";
+import type { ActeCreateAuteur } from "./acteCreateAuteur";
+import type { ActeCreateBaseLegale } from "./acteCreateBaseLegale";
+import type { ActeCreatePublicCible } from "./acteCreatePublicCible";
+import type { ActeCreateDomaineApplication } from "./acteCreateDomaineApplication";
+import type { ActeCreateLieuApplication } from "./acteCreateLieuApplication";
+import type { ActeCreateTimbre } from "./acteCreateTimbre";
+import type { ActeCreateClassification } from "./acteCreateClassification";
+import type { ActeCreateMotsCles } from "./acteCreateMotsCles";
+import type { ActeCreateStatut } from "./acteCreateStatut";
+import type { ActeCreateActeModifiePar } from "./acteCreateActeModifiePar";
+import type { ActeCreateSignataires } from "./acteCreateSignataires";
+import type { ActeCreateVersion } from "./acteCreateVersion";
+import type { ActeCreateFichierAssocie } from "./acteCreateFichierAssocie";
+import type { ActeCreateDateEnregistrement } from "./acteCreateDateEnregistrement";
+import type { ActeCreateUtilisateurModification } from "./acteCreateUtilisateurModification";
+import type { ActeCreateActesReferences } from "./acteCreateActesReferences";
+import type { ActeCreateActesApplications } from "./acteCreateActesApplications";
+import type { ActeCreateActesModifies } from "./acteCreateActesModifies";
+import type { ActeCreateActesModificateurs } from "./acteCreateActesModificateurs";
+import type { ActeCreateActesEnfants } from "./acteCreateActesEnfants";
+import type { ActeCreateActeOriginal } from "./acteCreateActeOriginal";
 
 export interface ActeCreate {
   numero: string;

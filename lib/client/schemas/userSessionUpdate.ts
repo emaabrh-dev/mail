@@ -4,8 +4,8 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { UserSessionUpdateLastActive } from './userSessionUpdateLastActive';
-import type { UserSessionUpdateIsActive } from './userSessionUpdateIsActive';
+import type { UserSessionUpdateLastActive } from "./userSessionUpdateLastActive";
+import type { UserSessionUpdateIsActive } from "./userSessionUpdateIsActive";
 
 export interface UserSessionUpdate {
   last_active?: UserSessionUpdateLastActive;

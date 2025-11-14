@@ -4,34 +4,34 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { ActeUpdateNumero } from './acteUpdateNumero';
-import type { ActeUpdateObjet } from './acteUpdateObjet';
-import type { ActeUpdateTypeActe } from './acteUpdateTypeActe';
-import type { ActeUpdateDescription } from './acteUpdateDescription';
-import type { ActeUpdateDateCreation } from './acteUpdateDateCreation';
-import type { ActeUpdateDateEntreeVigueur } from './acteUpdateDateEntreeVigueur';
-import type { ActeUpdateDateExpiration } from './acteUpdateDateExpiration';
-import type { ActeUpdateAuteur } from './acteUpdateAuteur';
-import type { ActeUpdateBaseLegale } from './acteUpdateBaseLegale';
-import type { ActeUpdatePublicCible } from './acteUpdatePublicCible';
-import type { ActeUpdateDomaineApplication } from './acteUpdateDomaineApplication';
-import type { ActeUpdateLieuApplication } from './acteUpdateLieuApplication';
-import type { ActeUpdateTimbre } from './acteUpdateTimbre';
-import type { ActeUpdateClassification } from './acteUpdateClassification';
-import type { ActeUpdateMotsCles } from './acteUpdateMotsCles';
-import type { ActeUpdateStatut } from './acteUpdateStatut';
-import type { ActeUpdateActeModifiePar } from './acteUpdateActeModifiePar';
-import type { ActeUpdateSignataires } from './acteUpdateSignataires';
-import type { ActeUpdateVersion } from './acteUpdateVersion';
-import type { ActeUpdateFichierAssocie } from './acteUpdateFichierAssocie';
-import type { ActeUpdateDateEnregistrement } from './acteUpdateDateEnregistrement';
-import type { ActeUpdateUtilisateurModification } from './acteUpdateUtilisateurModification';
-import type { ActeUpdateActesReferences } from './acteUpdateActesReferences';
-import type { ActeUpdateActesApplications } from './acteUpdateActesApplications';
-import type { ActeUpdateActesModifies } from './acteUpdateActesModifies';
-import type { ActeUpdateActesModificateurs } from './acteUpdateActesModificateurs';
-import type { ActeUpdateActesEnfants } from './acteUpdateActesEnfants';
-import type { ActeUpdateActeOriginal } from './acteUpdateActeOriginal';
+import type { ActeUpdateNumero } from "./acteUpdateNumero";
+import type { ActeUpdateObjet } from "./acteUpdateObjet";
+import type { ActeUpdateTypeActe } from "./acteUpdateTypeActe";
+import type { ActeUpdateDescription } from "./acteUpdateDescription";
+import type { ActeUpdateDateCreation } from "./acteUpdateDateCreation";
+import type { ActeUpdateDateEntreeVigueur } from "./acteUpdateDateEntreeVigueur";
+import type { ActeUpdateDateExpiration } from "./acteUpdateDateExpiration";
+import type { ActeUpdateAuteur } from "./acteUpdateAuteur";
+import type { ActeUpdateBaseLegale } from "./acteUpdateBaseLegale";
+import type { ActeUpdatePublicCible } from "./acteUpdatePublicCible";
+import type { ActeUpdateDomaineApplication } from "./acteUpdateDomaineApplication";
+import type { ActeUpdateLieuApplication } from "./acteUpdateLieuApplication";
+import type { ActeUpdateTimbre } from "./acteUpdateTimbre";
+import type { ActeUpdateClassification } from "./acteUpdateClassification";
+import type { ActeUpdateMotsCles } from "./acteUpdateMotsCles";
+import type { ActeUpdateStatut } from "./acteUpdateStatut";
+import type { ActeUpdateActeModifiePar } from "./acteUpdateActeModifiePar";
+import type { ActeUpdateSignataires } from "./acteUpdateSignataires";
+import type { ActeUpdateVersion } from "./acteUpdateVersion";
+import type { ActeUpdateFichierAssocie } from "./acteUpdateFichierAssocie";
+import type { ActeUpdateDateEnregistrement } from "./acteUpdateDateEnregistrement";
+import type { ActeUpdateUtilisateurModification } from "./acteUpdateUtilisateurModification";
+import type { ActeUpdateActesReferences } from "./acteUpdateActesReferences";
+import type { ActeUpdateActesApplications } from "./acteUpdateActesApplications";
+import type { ActeUpdateActesModifies } from "./acteUpdateActesModifies";
+import type { ActeUpdateActesModificateurs } from "./acteUpdateActesModificateurs";
+import type { ActeUpdateActesEnfants } from "./acteUpdateActesEnfants";
+import type { ActeUpdateActeOriginal } from "./acteUpdateActeOriginal";
 
 export interface ActeUpdate {
   numero: ActeUpdateNumero;

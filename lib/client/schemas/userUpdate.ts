@@ -4,9 +4,9 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { UserUpdateUsername } from './userUpdateUsername';
-import type { UserUpdateEmail } from './userUpdateEmail';
-import type { UserUpdatePhone } from './userUpdatePhone';
+import type { UserUpdateUsername } from "./userUpdateUsername";
+import type { UserUpdateEmail } from "./userUpdateEmail";
+import type { UserUpdatePhone } from "./userUpdatePhone";
 
 export interface UserUpdate {
   username?: UserUpdateUsername;

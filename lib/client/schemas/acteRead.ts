@@ -4,33 +4,33 @@
  * AERO RH
  * OpenAPI spec version: 0.1.0
  */
-import type { ActeReadObjet } from './acteReadObjet';
-import type { ActeReadTypeActe } from './acteReadTypeActe';
-import type { ActeReadDescription } from './acteReadDescription';
-import type { ActeReadDateCreation } from './acteReadDateCreation';
-import type { ActeReadDateEntreeVigueur } from './acteReadDateEntreeVigueur';
-import type { ActeReadDateExpiration } from './acteReadDateExpiration';
-import type { ActeReadAuteur } from './acteReadAuteur';
-import type { ActeReadBaseLegale } from './acteReadBaseLegale';
-import type { ActeReadPublicCible } from './acteReadPublicCible';
-import type { ActeReadDomaineApplication } from './acteReadDomaineApplication';
-import type { ActeReadLieuApplication } from './acteReadLieuApplication';
-import type { ActeReadTimbre } from './acteReadTimbre';
-import type { ActeReadClassification } from './acteReadClassification';
-import type { ActeReadMotsCles } from './acteReadMotsCles';
-import type { ActeReadStatut } from './acteReadStatut';
-import type { ActeReadActeModifiePar } from './acteReadActeModifiePar';
-import type { ActeReadSignataires } from './acteReadSignataires';
-import type { ActeReadVersion } from './acteReadVersion';
-import type { ActeReadFichierAssocie } from './acteReadFichierAssocie';
-import type { ActeReadDateEnregistrement } from './acteReadDateEnregistrement';
-import type { ActeReadUtilisateurModification } from './acteReadUtilisateurModification';
-import type { ActeReadActesReferences } from './acteReadActesReferences';
-import type { ActeReadActesApplications } from './acteReadActesApplications';
-import type { ActeReadActesModifies } from './acteReadActesModifies';
-import type { ActeReadActesModificateurs } from './acteReadActesModificateurs';
-import type { ActeReadActesEnfants } from './acteReadActesEnfants';
-import type { ActeReadActeOriginal } from './acteReadActeOriginal';
+import type { ActeReadObjet } from "./acteReadObjet";
+import type { ActeReadTypeActe } from "./acteReadTypeActe";
+import type { ActeReadDescription } from "./acteReadDescription";
+import type { ActeReadDateCreation } from "./acteReadDateCreation";
+import type { ActeReadDateEntreeVigueur } from "./acteReadDateEntreeVigueur";
+import type { ActeReadDateExpiration } from "./acteReadDateExpiration";
+import type { ActeReadAuteur } from "./acteReadAuteur";
+import type { ActeReadBaseLegale } from "./acteReadBaseLegale";
+import type { ActeReadPublicCible } from "./acteReadPublicCible";
+import type { ActeReadDomaineApplication } from "./acteReadDomaineApplication";
+import type { ActeReadLieuApplication } from "./acteReadLieuApplication";
+import type { ActeReadTimbre } from "./acteReadTimbre";
+import type { ActeReadClassification } from "./acteReadClassification";
+import type { ActeReadMotsCles } from "./acteReadMotsCles";
+import type { ActeReadStatut } from "./acteReadStatut";
+import type { ActeReadActeModifiePar } from "./acteReadActeModifiePar";
+import type { ActeReadSignataires } from "./acteReadSignataires";
+import type { ActeReadVersion } from "./acteReadVersion";
+import type { ActeReadFichierAssocie } from "./acteReadFichierAssocie";
+import type { ActeReadDateEnregistrement } from "./acteReadDateEnregistrement";
+import type { ActeReadUtilisateurModification } from "./acteReadUtilisateurModification";
+import type { ActeReadActesReferences } from "./acteReadActesReferences";
+import type { ActeReadActesApplications } from "./acteReadActesApplications";
+import type { ActeReadActesModifies } from "./acteReadActesModifies";
+import type { ActeReadActesModificateurs } from "./acteReadActesModificateurs";
+import type { ActeReadActesEnfants } from "./acteReadActesEnfants";
+import type { ActeReadActeOriginal } from "./acteReadActeOriginal";
 
 export interface ActeRead {
   numero: string;
