@@ -5,4 +5,4 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type ActeCreateDateCreation = string | null;
+export type ActeCreateDateCreation = Date | null;

@@ -10,7 +10,7 @@ export interface UserSessionRead {
   user_id: number;
   ip_address: string;
   user_agent: string;
-  created_at: string;
-  last_active: string;
+  created_at: Date;
+  last_active: Date;
   is_active: boolean;
 }

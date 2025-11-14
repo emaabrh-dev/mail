@@ -5,4 +5,4 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type ActeReadDateEntreeVigueur = string | null;
+export type ActeReadDateEntreeVigueur = Date | null;

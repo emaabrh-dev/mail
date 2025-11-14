@@ -10,10 +10,14 @@ module.exports = {
       clean: true,
       prettier: true,
       override: {
+        useDates: true,
         mutator: {
           path: "./lib/client/axiosInstance.ts", // path to your custom Axios
           name: "customAxios",                  // export name of the instance
-        }
+        },
+        transformers: {
+          dates: ['date', 'date-time'],  // treat both as Date
+        },
       },
     },
   },

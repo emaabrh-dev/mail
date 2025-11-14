@@ -5,4 +5,4 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export type ActeReadDateEnregistrement = string | null;
+export type ActeReadDateEnregistrement = Date | null;
