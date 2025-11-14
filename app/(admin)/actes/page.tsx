@@ -138,7 +138,7 @@ export default function ActesPage() {
           variant="contained"
           color="primary"
           component={Link}
-          href="/actes/nouveau"
+          href="/actes/new"
         >
           + Créer un acte
         </Button>
