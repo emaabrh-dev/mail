@@ -4,28 +4,32 @@ const path = require("path");
 
 const ENDPOINTS_DIR = "lib/client/endpoints";
 
+// Helper to ensure folder exists
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
-// Creates or updates index.ts for a single folder
+// Create/update index.ts for a single folder
 function generateLocalIndex(folderPath) {
   const files = fs
     .readdirSync(folderPath)
     .filter((f) => f.endsWith(".ts") && f !== "index.ts");
 
-  if (files.length === 0) return;
+  if (!files.length) return;
 
   const tag = path.basename(folderPath);
   const content = files
     .map((f) => `export * from "./${path.basename(f, ".ts")}";`)
     .join("\n");
 
-  fs.writeFileSync(path.join(folderPath, "index.ts"), `// Barrel for ${tag} endpoints\n${content}\n`);
+  fs.writeFileSync(
+    path.join(folderPath, "index.ts"),
+    `// Barrel for ${tag} endpoints\n${content}\n`
+  );
   console.log(`✅ Updated index.ts for tag: ${tag}`);
 }
 
-// Creates global index.ts that aggregates all tag folders
+// Create global index.ts
 function createGlobalIndex() {
   ensureDir(ENDPOINTS_DIR);
 
@@ -35,42 +39,45 @@ function createGlobalIndex() {
       fs.statSync(path.join(ENDPOINTS_DIR, name)).isDirectory()
     );
 
-  // Generate local index.ts for each tag folder
   folders.forEach((folder) => {
-    const folderPath = path.join(ENDPOINTS_DIR, folder);
-    generateLocalIndex(folderPath);
+    generateLocalIndex(path.join(ENDPOINTS_DIR, folder));
   });
 
-  // Create global index.ts
   const content = folders.map((f) => `export * from "./${f}";`).join("\n");
   fs.writeFileSync(path.join(ENDPOINTS_DIR, "index.ts"), content + "\n");
   console.log(`✅ Generated global endpoints index.ts`);
 }
 
+/** @type {import('@orval/core').OrvalConfig} */
 module.exports = {
   aeroRh: {
     input: "http://127.0.0.1:9721/openapi.json",
     output: {
       mode: "tags-split",
-      target: ENDPOINTS_DIR, // must be string in v7
+      target: ENDPOINTS_DIR,
       schemas: "lib/client/schemas",
       client: "axios",
       clean: true,
       prettier: true,
+      baseUrl: "/api/v2", 
       override: {
         useDates: true,
         mutator: {
           path: "./lib/client/axiosInstance.ts",
           name: "customAxios",
+        },      
+        requestOptions: (request) => {
+          console.log("requestOptions called:", request.url);
+          return request;
         },
         transformers: {
-          dates: ["date", "date-time"],
+          dates: ["date", "date-time"], // automatically converts date-time fields
         },
-        // Remove afterWrite: fixGeneratedFile because it wasn’t reliably called
+        transformer: './lib/client/transformer.ts', 
       },
     },
     hooks: {
-      afterAllFilesWrite: createGlobalIndex, // now runs both local and global indexes
+      afterAllFilesWrite: createGlobalIndex, // generate local + global indexes
     },
   },
 };

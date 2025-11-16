@@ -6,7 +6,7 @@ from main.api.deps import SessionDep
 
 router = APIRouter(prefix="/actes", tags=["Actes"])
 
-@router.post("/", response_model=ActeRead)
+@router.post("", response_model=ActeRead)
 def create_acte(acte: ActeCreate, session: SessionDep):
     db_acte = Acte.from_orm(acte)
     session.add(db_acte)
@@ -14,7 +14,7 @@ def create_acte(acte: ActeCreate, session: SessionDep):
     session.refresh(db_acte)
     return db_acte
 
-@router.get("/", response_model=list[ActeRead])
+@router.get("", response_model=list[ActeRead])
 def read_actes(session: SessionDep):
     return session.exec(select(Acte)).all()
 

@@ -8,11 +8,11 @@ from .check_user import router as check_router
 router = APIRouter(prefix="/users", tags=["Users"])
 router.include_router(check_router)
 
-@router.post("/", response_model=UserRead)
+@router.post("", response_model=UserRead)
 def create_user_route(user: UserCreate, session: SessionDep):
     return user_crud.create_user(session, user)
 
-@router.get("/", response_model=list[UserRead])
+@router.get("", response_model=list[UserRead])
 def list_users(session: SessionDep):
     return user_crud.get_all_users(session)
 

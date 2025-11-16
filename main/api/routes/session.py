@@ -14,10 +14,6 @@ def create_session(data: UserSessionCreate, db: SessionDep, request: Request):
     data.user_agent = request.headers.get("user-agent", "unknown")
     return create_user_session(db, data)
 
-@router.post("/", response_model=UserSessionRead)
-def create_session_(data: UserSessionCreate, db: SessionDep, request: Request):
-    return create_session(data, db, request)
-
 @router.get("/current", response_model=UserSessionRead)
 def get_current_session(db: SessionDep, user: User = Depends(get_current_user)):
     session = get_user_session_last( db, user.id)

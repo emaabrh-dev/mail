@@ -5,7 +5,7 @@
   "scripts": {
     "predev": "node scripts/check-acte.js",
     "dev": "concurrently \"npm run dev:frontend\" \"npm run start-backend\"",
-    "dev:frontend": "next dev --turbopack",
+    "dev:frontend": "NODE_OPTIONS=\"--trace-deprecation\" next dev --turbopack",
     "dev:backend-unix": "./.venv/bin/python -m uvicorn main:app --reload --port 9721",
     "dev:backend-win": ".\\.venv\\Scripts\\python.exe -m uvicorn main:app --reload --port 9721",
     "start-backend": "npm run dev:backend-unix || npm run dev:backend-win",
@@ -40,7 +40,7 @@
     "openapi-fetch": "^0.15.0",
     "openapi-typescript": "^7.10.1",
     "openapi-typescript-codegen": "^0.29.0",
-    "orval": "^7.16.0",
+    "orval": "^8.0.0-rc.2",
     "tailwindcss": "^4",
     "ts-morph": "^27.0.2",
     "ts-node": "^10.9.2",
