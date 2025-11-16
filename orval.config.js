@@ -77,7 +77,13 @@ module.exports = {
       },
     },
     hooks: {
-      afterAllFilesWrite: createGlobalIndex, // generate local + global indexes
+      afterAllFilesWrite: () => {
+        // First generate indexes
+        createGlobalIndex();
+        // Then run check-acte.js
+        console.log("✅ Running scripts/check-acte.js...");
+        execSync("node scripts/check-acte.js", { stdio: "inherit" });
+      },
     },
   },
 };
