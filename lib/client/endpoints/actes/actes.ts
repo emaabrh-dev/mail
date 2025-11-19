@@ -13,14 +13,14 @@ export const getActes = () => {
    * @summary Read Actes
    */
   const readActesApiActesGet = () => {
-    return customAxios<ActeRead[]>({ url: `/api/v2/api/actes`, method: "GET" });
+    return customAxios<ActeRead[]>({ url: `/api/v1/actes`, method: "GET" });
   };
   /**
    * @summary Create Acte
    */
   const createActeApiActesPost = (acteCreate: ActeCreate) => {
     return customAxios<ActeRead>({
-      url: `/api/v2/api/actes`,
+      url: `/api/v1/actes`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: acteCreate,
@@ -31,7 +31,7 @@ export const getActes = () => {
    */
   const readActeApiActesActeIdGet = (acteId: number) => {
     return customAxios<ActeRead>({
-      url: `/api/v2/api/actes/${acteId}`,
+      url: `/api/v1/actes/${acteId}`,
       method: "GET",
     });
   };
@@ -43,7 +43,7 @@ export const getActes = () => {
     acteUpdate: ActeUpdate,
   ) => {
     return customAxios<ActeRead>({
-      url: `/api/v2/api/actes/${acteId}`,
+      url: `/api/v1/actes/${acteId}`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: acteUpdate,
@@ -54,7 +54,7 @@ export const getActes = () => {
    */
   const deleteActeApiActesActeIdDelete = (acteId: number) => {
     return customAxios<unknown>({
-      url: `/api/v2/api/actes/${acteId}`,
+      url: `/api/v1/actes/${acteId}`,
       method: "DELETE",
     });
   };

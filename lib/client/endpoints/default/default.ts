@@ -11,7 +11,7 @@ export const getDefault = () => {
    * @summary Read Root
    */
   const readRootGet = () => {
-    return customAxios<unknown>({ url: `/api/v2/`, method: "GET" });
+    return customAxios<unknown>({ url: `/api/v1/`, method: "GET" });
   };
   return {};
 };

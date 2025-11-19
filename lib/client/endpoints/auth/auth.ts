@@ -18,7 +18,7 @@ export const getAuth = () => {
    */
   const loginApiAuthLoginPost = (loginRequest: LoginRequest) => {
     return customAxios<AuthResponse>({
-      url: `/api/v2/api/auth/login`,
+      url: `/api/v1/auth/login`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: loginRequest,
@@ -29,7 +29,7 @@ export const getAuth = () => {
    */
   const registerApiAuthRegisterPost = (registerRequest: RegisterRequest) => {
     return customAxios<AuthResponse>({
-      url: `/api/v2/api/auth/register`,
+      url: `/api/v1/auth/register`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: registerRequest,

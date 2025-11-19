@@ -1,9 +1,13 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
+from typing import Annotated
+
+FourDigitNumber = Annotated[str | None, Field(pattern=r"^\d{4}$", min_length=4, max_length=4, json_schema_extra={"format": "four-digit"})]
+
 
 class ActeCreate(BaseModel):
-    type_acte: Optional[str]
+    type_acte: FourDigitNumber
     numero: str
     timbre: Optional[str]
     date_creation: Optional[datetime]
@@ -38,7 +42,7 @@ class ActeRead(ActeCreate):
 class ActeUpdate(BaseModel):
     numero: Optional[str]
     objet: Optional[str]
-    type_acte: Optional[str]
+    type_acte: FourDigitNumber
     description: Optional[str]
     date_creation: Optional[datetime]
     date_entree_vigueur: Optional[datetime]

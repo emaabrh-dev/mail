@@ -20,7 +20,7 @@ export const getSessions = () => {
     userSessionCreate: UserSessionCreate,
   ) => {
     return customAxios<UserSessionRead>({
-      url: `/api/v2/api/sessions`,
+      url: `/api/v1/sessions`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: userSessionCreate,
@@ -31,7 +31,7 @@ export const getSessions = () => {
    */
   const getCurrentSessionApiSessionsCurrentGet = () => {
     return customAxios<UserSessionRead>({
-      url: `/api/v2/api/sessions/current`,
+      url: `/api/v1/sessions/current`,
       method: "GET",
     });
   };
@@ -40,7 +40,7 @@ export const getSessions = () => {
    */
   const getActiveSessionsApiSessionsActiveUserIdGet = (userId: number) => {
     return customAxios<UserSessionRead[]>({
-      url: `/api/v2/api/sessions/active/${userId}`,
+      url: `/api/v1/sessions/active/${userId}`,
       method: "GET",
     });
   };
@@ -49,7 +49,7 @@ export const getSessions = () => {
    */
   const getSessionByIdApiSessionsSessionIdGet = (sessionId: string) => {
     return customAxios<UserSessionRead>({
-      url: `/api/v2/api/sessions/${sessionId}`,
+      url: `/api/v1/sessions/${sessionId}`,
       method: "GET",
     });
   };
@@ -61,7 +61,7 @@ export const getSessions = () => {
     userSessionUpdate: UserSessionUpdate,
   ) => {
     return customAxios<UserSessionRead>({
-      url: `/api/v2/api/sessions/${sessionId}`,
+      url: `/api/v1/sessions/${sessionId}`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: userSessionUpdate,
@@ -72,7 +72,7 @@ export const getSessions = () => {
    */
   const deactivateSessionApiSessionsSessionIdDelete = (sessionId: string) => {
     return customAxios<UserSessionRead>({
-      url: `/api/v2/api/sessions/${sessionId}`,
+      url: `/api/v1/sessions/${sessionId}`,
       method: "DELETE",
     });
   };

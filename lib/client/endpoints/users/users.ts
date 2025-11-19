@@ -23,7 +23,7 @@ export const getUsers = () => {
     params: CheckUsernameApiUsersCheckUsernameGetParams,
   ) => {
     return customAxios<unknown>({
-      url: `/api/v2/api/users/check/username`,
+      url: `/api/v1/users/check/username`,
       method: "GET",
       params,
     });
@@ -35,7 +35,7 @@ export const getUsers = () => {
     params: CheckEmailApiUsersCheckEmailGetParams,
   ) => {
     return customAxios<unknown>({
-      url: `/api/v2/api/users/check/email`,
+      url: `/api/v1/users/check/email`,
       method: "GET",
       params,
     });
@@ -47,7 +47,7 @@ export const getUsers = () => {
     params: CheckPhoneApiUsersCheckPhoneGetParams,
   ) => {
     return customAxios<unknown>({
-      url: `/api/v2/api/users/check/phone`,
+      url: `/api/v1/users/check/phone`,
       method: "GET",
       params,
     });
@@ -56,14 +56,14 @@ export const getUsers = () => {
    * @summary List Users
    */
   const listUsersApiUsersGet = () => {
-    return customAxios<UserRead[]>({ url: `/api/v2/api/users`, method: "GET" });
+    return customAxios<UserRead[]>({ url: `/api/v1/users`, method: "GET" });
   };
   /**
    * @summary Create User Route
    */
   const createUserRouteApiUsersPost = (userCreate: UserCreate) => {
     return customAxios<UserRead>({
-      url: `/api/v2/api/users`,
+      url: `/api/v1/users`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       data: userCreate,
@@ -74,7 +74,7 @@ export const getUsers = () => {
    */
   const readUserApiUsersUserIdGet = (userId: number) => {
     return customAxios<UserRead>({
-      url: `/api/v2/api/users/${userId}`,
+      url: `/api/v1/users/${userId}`,
       method: "GET",
     });
   };
@@ -86,7 +86,7 @@ export const getUsers = () => {
     userUpdate: UserUpdate,
   ) => {
     return customAxios<UserRead>({
-      url: `/api/v2/api/users/${userId}`,
+      url: `/api/v1/users/${userId}`,
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       data: userUpdate,
@@ -97,7 +97,7 @@ export const getUsers = () => {
    */
   const deleteUserRouteApiUsersUserIdDelete = (userId: number) => {
     return customAxios<unknown>({
-      url: `/api/v2/api/users/${userId}`,
+      url: `/api/v1/users/${userId}`,
       method: "DELETE",
     });
   };

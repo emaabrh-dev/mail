@@ -11,17 +11,18 @@ if (!fs.existsSync(ph)) {
   const sourceFile = project.addSourceFileAtPath(ph);
   const iface = sourceFile.getInterfaceOrThrow("ActeCreate");
 
-  // Recursively resolve type aliases
   function resolveType(type: Type): string {
-    // Handle union, intersection, or literal types
     if (type.isUnion()) {
-      return type.getUnionTypes().map(resolveType).join(" | ");
+      // Filter out "never" types (optional)
+      const members = type.getUnionTypes().filter(t => !t.isNever());
+      // Recursively resolve each member
+      return members.map(resolveType).join(" | ");
     }
+
     if (type.isIntersection()) {
       return type.getIntersectionTypes().map(resolveType).join(" & ");
     }
 
-    // Resolve type alias
     const aliasSymbol = type.getAliasSymbol();
     if (aliasSymbol) {
       const decl = aliasSymbol.getDeclarations()[0];
@@ -29,14 +30,13 @@ if (!fs.existsSync(ph)) {
       return resolveType(declType);
     }
 
-    // Resolve array types
     if (type.isArray()) {
       const elemType = type.getArrayElementTypeOrThrow();
       return `${resolveType(elemType)}[]`;
     }
 
-    // Otherwise, return primitive name
-    return type.getText();
+    // For literal types, enums, or primitives
+    return type.isUnknown() ? "unknown" : type.getText();
   }
 
   const properties = iface.getProperties().map((p) => ({
