@@ -94,6 +94,7 @@ export * from "./authResponse";
 export * from "./checkEmailApiUsersCheckEmailGetParams";
 export * from "./checkPhoneApiUsersCheckPhoneGetParams";
 export * from "./checkUsernameApiUsersCheckUsernameGetParams";
+export * from "./getColumnsAllApiTablesColumnsGet200Item";
 export * from "./hTTPValidationError";
 export * from "./loginRequest";
 export * from "./registerRequest";

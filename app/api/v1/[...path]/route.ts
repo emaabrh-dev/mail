@@ -3,10 +3,16 @@ import { NextRequest, NextResponse } from "next/server";
 
 const BACKEND = "http://localhost:9721/api";
 
-function buildTargetUrl(base: string, path?: string[]) {
+function buildTargetUrl(base: string, path?: string[], search?: string) {
   const safeSegments = Array.isArray(path) ? path.filter(Boolean) : [];
   const suffix = safeSegments.length ? safeSegments.join("/") : "";
-  return suffix ? `${base}/${suffix}` : base;
+  let url = suffix ? `${base}/${suffix}` : base;
+
+  if (search) {
+    url += search; // append query string
+  }
+
+  return url;
 }
 
 async function handler(
@@ -16,7 +22,7 @@ async function handler(
   // ⬅️ FIX: await params
   const { path } = await context.params;
 
-  const targetUrl = buildTargetUrl(BACKEND, path);
+  const targetUrl = buildTargetUrl(BACKEND, path, req.nextUrl.search);
 
   const init: RequestInit = {
     method: req.method,

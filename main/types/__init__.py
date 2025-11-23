@@ -1,7 +1,6 @@
-from pydantic import BaseModel
-from pydantic import GetJsonSchemaHandler
+from pydantic import BaseModel, GetJsonSchemaHandler, Field, ConfigDict
 from pydantic.json_schema import JsonSchemaValue
-from pydantic import Field
+from typing import Optional, Literal
 import re
 
 
@@ -37,3 +36,15 @@ class FourDigitNumber(str):
             "description": "A 4-digit numeric string",
             "example": "0423",
         }
+
+class TableFilters(BaseModel):
+    gn: str
+    page: int = 1
+    rows: int = 50
+    sidx: Optional[str] = None
+    sord: str = "asc"
+    search: bool = False
+    filters: Optional[str] = None
+
+    # Allow extra fields
+    model_config = ConfigDict(extra="allow")

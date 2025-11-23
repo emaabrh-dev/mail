@@ -24,6 +24,10 @@ async def lifespan(app: FastAPI):
 def create_app() -> FastAPI:
     tags_metadata = [
         {"name": "Actes", "description": "Legal references and decrees"},
+        {"name": "Auth", "description": "Authentication and authorization endpoints"},
+        {"name": "Sessions", "description": "User session management"},
+        {"name": "Tables", "description": "Data table operations"},
+        {"name": "Users", "description": "User management operations"},
     ]
     
     app = FastAPI(
