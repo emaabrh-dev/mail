@@ -194,7 +194,7 @@ const config = defineConfig({
     hooks: {
       afterAllFilesWrite: () => {
         createGlobalIndex();
-        generateActeRuntime();
+        //generateActeRuntime();
       },
     },
   },
