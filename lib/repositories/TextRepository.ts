@@ -1,12 +1,12 @@
-// repositories/TextRepository.ts
+// lib/repositories/TextRepository.ts
 import { SelectTypeValue } from "../models/SelectTypeValue";
 import { TextCategory } from "../models/TextCategory";
 
 export namespace TextRepository {
-  const _textTypes: Record<string, SelectTypeValue> = {};
+  const _textTypes: Record<string, SelectTypeValue<TextCategory>> = {};
 
   const addAll = (
-    dict: Record<string, SelectTypeValue>
+    dict: Record<string, SelectTypeValue<TextCategory>>
   ) => Object.assign(_textTypes, dict);
 
   // ---- JURIDIQUE --------------------------------------------------
@@ -110,10 +110,10 @@ export namespace TextRepository {
   export const isValidId = (id: string): boolean =>
     Boolean(id) && id in _textTypes;
 
-  export const getById = (id: string): SelectTypeValue | undefined =>
+  export const getById = (id: string): SelectTypeValue<TextCategory> | undefined =>
     _textTypes[id];
 
-  export const getAll = (): [string, SelectTypeValue][] =>
+  export const getAll = (): [string, SelectTypeValue<TextCategory>][] =>
     Object.entries(_textTypes);
 
   export const getByCategory = (...categories: TextCategory[]) => {

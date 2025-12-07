@@ -1,3 +1,4 @@
+// components/FormField.tsx
 'use client';
 
 import React from 'react';
@@ -14,10 +15,12 @@ import dayjs, { Dayjs } from 'dayjs';
 import EditCalendarRoundedIcon from '@mui/icons-material/EditCalendarRounded';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
+import { SelectField } from './SelectField'; 
 
 const StyledButton = styled(IconButton)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
 }));
+
 const StyledDay = styled(PickersDay)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   color: theme.palette.primary.light,
@@ -28,11 +31,12 @@ const StyledDay = styled(PickersDay)(({ theme }) => ({
 
 export interface FormFieldProps {
   fieldKey: string;
-  fieldType: string; // e.g., "string", "string | null", "Date | null", "A | B | null"
+  fieldType: string; // e.g., "string", "text | null", "Date | null", "A | B | null"
   value: any;
   onChange: (key: string, value: any) => void;
-  textFieldProps?: Partial<TextFieldProps>; // extra props for TextField
-  datePickerProps?: Partial<DatePickerProps<any>>; // extra props for DatePicker
+  textFieldProps?: Partial<TextFieldProps>;
+  datePickerProps?: Partial<DatePickerProps<any>>;
+  selectProps?: any; 
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -42,18 +46,26 @@ export const FormField: React.FC<FormFieldProps> = ({
   onChange,
   textFieldProps = {},
   datePickerProps = {},
+  selectProps = {},
 }) => {
-  // AUTO-DETECT NULLABLE
-  const nullable = fieldType.split('|').map((t) => t.trim()).includes('null');
+  // normalize type for case-insensitive checks
+  const normalizedFieldType = fieldType.toLowerCase();
+
+  // treat "text" as "string"
+  const normalizedType = normalizedFieldType.replace('text', 'string');
+
+  // check if nullable
+  const nullable = normalizedType.split('|').map((t) => t.trim()).includes('null');
   const isNull = value === null;
 
+  // handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (fieldType.startsWith('boolean')) {
+    if (normalizedType.startsWith('boolean')) {
       onChange(fieldKey, e.target.checked);
       return;
     }
 
-    if (fieldType.startsWith('number')) {
+    if (normalizedType.startsWith('number')) {
       const raw = e.target.value;
       if (raw === '' && nullable) return onChange(fieldKey, null);
       return onChange(fieldKey, e.target.valueAsNumber);
@@ -64,14 +76,14 @@ export const FormField: React.FC<FormFieldProps> = ({
     return onChange(fieldKey, raw);
   };
 
-  // Detect date field
+  // detect date field
   const isDate =
-    fieldType === 'Date' ||
-    fieldType.includes('Date') ||
-    fieldType.includes('date-time') ||
-    (fieldType.includes('string') && fieldKey.toLowerCase().includes('date'));
+    normalizedType === 'date' ||
+    normalizedType.includes('date') ||
+    normalizedType.includes('date-time') ||
+    (normalizedType.includes('string') && fieldKey.toLowerCase().includes('date'));
 
-  // Nullable checkbox inside input
+  // nullable checkbox for input
   const nullableAdornment = nullable ? (
     <InputAdornment position="end">
       <Checkbox
@@ -82,8 +94,8 @@ export const FormField: React.FC<FormFieldProps> = ({
           } else {
             // restore default value based on type
             if (isDate) onChange(fieldKey, new Date());
-            else if (fieldType.startsWith('number')) onChange(fieldKey, 0);
-            else if (fieldType.startsWith('boolean')) onChange(fieldKey, false);
+            else if (normalizedType.startsWith('number')) onChange(fieldKey, 0);
+            else if (normalizedType.startsWith('boolean')) onChange(fieldKey, false);
             else onChange(fieldKey, '');
           }
         }}
@@ -92,8 +104,23 @@ export const FormField: React.FC<FormFieldProps> = ({
     </InputAdornment>
   ) : null;
 
+  // SELECT
+  if (normalizedType.startsWith('select')) {
+    return (
+      <SelectField
+        fieldKey={fieldKey}
+        label={fieldKey}
+        value={value}
+        onChange={(v) => onChange(fieldKey, v)}
+        disabled={isNull}
+        nullable={nullable}
+        {...selectProps}
+      />
+    );
+  }
+
   // BOOLEAN
-  if (fieldType.startsWith('boolean')) {
+  if (normalizedType.startsWith('boolean')) {
     return (
       <Checkbox
         checked={!!value}
@@ -148,11 +175,11 @@ export const FormField: React.FC<FormFieldProps> = ({
     );
   }
 
-  // NUMBER / STRING
+  // NUMBER / STRING / TEXT
   return (
     <TextField
       label={fieldKey}
-      type={fieldType.startsWith('number') ? 'number' : 'text'}
+      type={normalizedType.startsWith('number') ? 'number' : 'text'}
       value={isNull ? '' : value ?? ''}
       onChange={handleChange}
       disabled={isNull}

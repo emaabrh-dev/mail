@@ -1,49 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { ActeCreate } from "@/lib/client/schemas";
 import { FormField } from "@/components/FormField";
 import { getTables } from "@/lib/client/endpoints";
 
-type ColumnSchema = {
-  field: keyof ActeCreate;
-  label: string;
-  type: string;
-};
-
 export default function NewActePage() {
-  const tablesApi = getTables();
+  // 🛠 FIX: memoize tablesApi so it does NOT recreate every render
+  const tablesApi = useMemo(() => getTables(), []);
 
   const [formValues, setFormValues] = useState<Partial<ActeCreate>>({});
-  const [fields, setFields] = useState<ColumnSchema[]>([]);
+  const [fields, setFields] = useState([]);
 
-  // ---------------------------------------
-  // 🔹 Load columns for "actes"
-  // ---------------------------------------
   useEffect(() => {
     async function loadColumns() {
       try {
-        const params = { gn: "actes" };
-        const res = await tablesApi.getColumnsAllApiTablesColumnsGet(params);
+        const res = await tablesApi.getColumnsAllApiTablesColumnsGet({
+          gn: "actes",
+        });
 
-        // The backend returns an object like: { actes: [ ...columns ] }
-        const gridColumns: ColumnSchema[] = res.data["actes"] || [];
-
-        setFields(
-          gridColumns.map((col) => ({
-            field: col.field as keyof ActeCreate,
-            label: col.label,
-            type: col.type,
-          }))
-        );
+        setFields(res.data || []);
       } catch (err) {
         console.error("Error loading columns:", err);
       }
     }
 
     loadColumns();
-  }, [tablesApi]);
+  }, [tablesApi]); // ← now stable, no infinite loop
 
   const handleChange = (key: string, value: any) => {
     setFormValues((prev) => ({ ...prev, [key]: value }));
@@ -52,7 +36,6 @@ export default function NewActePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log(formValues);
-    alert("Acte created: " + JSON.stringify(formValues, null, 2));
   };
 
   return (
@@ -61,18 +44,14 @@ export default function NewActePage() {
         Create New Acte
       </Typography>
 
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-      >
-        {fields.map(({ field, type, label }) => (
+      <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {fields.map((f: any) => (
           <FormField
-            key={field as string}
-            fieldKey={field}
-            fieldType={type}
-            label={label}
-            value={(formValues as any)[field]}
+            key={f.field}
+            fieldKey={f.field}
+            fieldType={f.type}
+            label={f.label}
+            value={(formValues as any)[f.field]}
             onChange={handleChange}
           />
         ))}

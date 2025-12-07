@@ -56,15 +56,15 @@ USERS_ALL_COLUMNS = [
 ACTES_ALL_COLUMNS = [
     {"name": "id", "label": "ID", "type": "number", "sortable": True, "searchable": True},
 
-    {"name": "type_acte", "label": "Type d'acte", "type": "text", "sortable": True, "searchable": True},
+    {"name": "type_acte", "label": "Type d'acte", "type": "select", "sortable": True, "searchable": True},
     {"name": "numero", "label": "Numéro", "type": "text", "sortable": True, "searchable": True},
     {"name": "timbre", "label": "Timbre", "type": "text", "sortable": True, "searchable": True},
 
     {"name": "date_creation", "label": "Date de création", "type": "date", "sortable": True, "searchable": True},
-    {"name": "classification", "label": "Classification", "type": "text", "sortable": True, "searchable": True},
+    {"name": "classification", "label": "Classification", "type": "select", "sortable": True, "searchable": True},
 
     {"name": "objet", "label": "Objet", "type": "text", "sortable": True, "searchable": True},
-    {"name": "statut", "label": "Statut", "type": "text", "sortable": True, "searchable": True},
+    {"name": "statut", "label": "Statut", "type": "select", "sortable": True, "searchable": True},
     {"name": "description", "label": "Description", "type": "text", "sortable": True, "searchable": True},
 
     {"name": "mots_cles", "label": "Mots clés", "type": "text", "sortable": True, "searchable": True},
