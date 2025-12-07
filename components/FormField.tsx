@@ -16,6 +16,7 @@ import EditCalendarRoundedIcon from '@mui/icons-material/EditCalendarRounded';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import { SelectField } from './SelectField'; 
+import labelsFr from "@/lib/i18n/fr.json";
 
 const StyledButton = styled(IconButton)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -37,6 +38,8 @@ export interface FormFieldProps {
   textFieldProps?: Partial<TextFieldProps>;
   datePickerProps?: Partial<DatePickerProps<any>>;
   selectProps?: any; 
+  minDate?: string;
+  maxDate?: string;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -47,6 +50,8 @@ export const FormField: React.FC<FormFieldProps> = ({
   textFieldProps = {},
   datePickerProps = {},
   selectProps = {},
+  minDate,
+  maxDate,
 }) => {
   // normalize type for case-insensitive checks
   const normalizedFieldType = fieldType.toLowerCase();
@@ -57,6 +62,8 @@ export const FormField: React.FC<FormFieldProps> = ({
   // check if nullable
   const nullable = normalizedType.split('|').map((t) => t.trim()).includes('null');
   const isNull = value === null;
+
+  const fieldLabel = labelsFr[fieldKey as keyof typeof labelsFr];
 
   // handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,7 +116,7 @@ export const FormField: React.FC<FormFieldProps> = ({
     return (
       <SelectField
         fieldKey={fieldKey}
-        label={fieldKey}
+        label={fieldLabel}
         value={value}
         onChange={(v) => onChange(fieldKey, v)}
         disabled={isNull}
@@ -136,7 +143,7 @@ export const FormField: React.FC<FormFieldProps> = ({
     return (
       <Box display="flex" alignItems="center" gap={1}>
         <DatePicker
-          label={fieldKey}
+          label={fieldLabel}
           value={isNull ? null : value ? dayjs(value) : null}
           onChange={(newValue: Dayjs | null) => {
             if (!newValue) {
@@ -146,6 +153,8 @@ export const FormField: React.FC<FormFieldProps> = ({
             onChange(fieldKey, newValue.toDate());
           }}
           disabled={isNull}
+          minDate={minDate ? dayjs(minDate) : undefined}
+          maxDate={maxDate ? dayjs(maxDate) : undefined}
           {...datePickerProps}
           slots={{
             openPickerIcon: EditCalendarRoundedIcon,
@@ -178,7 +187,7 @@ export const FormField: React.FC<FormFieldProps> = ({
   // NUMBER / STRING / TEXT
   return (
     <TextField
-      label={fieldKey}
+      label={fieldLabel}
       type={normalizedType.startsWith('number') ? 'number' : 'text'}
       value={isNull ? '' : value ?? ''}
       onChange={handleChange}

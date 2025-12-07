@@ -12,18 +12,20 @@ import { TextCategory } from "@/lib/models/TextCategory";
 interface SelectFieldProps<T extends string | number | null> {
   value: T | null;
   onChange: (value: T | null) => void;
+  fieldKey: string;
   label: string;
 }
 
 export function SelectField<T extends string | number | null>({
   value,
   onChange,
+  fieldKey,
   label,
 }: SelectFieldProps<T>) {
   const [options, setOptions] = useState<{ id: T; label: string; group?: string }[]>([]);
 
   useEffect(() => {
-    const normalized = label.toLowerCase();
+    const normalized = fieldKey.toLowerCase();
 
     if (normalized.includes("type_acte")) {
       const entries = TextRepository.getAll();
@@ -38,7 +40,7 @@ export function SelectField<T extends string | number | null>({
           .forEach((cat) => {
             if (val.hasCategory(cat as number)) {
               const groupName = TextCategory[cat as number] || "other";
-              const formatted = groupName.replace(/([a-z])([A-Z])/g, "$1 $2").toLowerCase();
+              const formatted = groupName.replace(/([a-z])([A-Z])/g, "$1 $2").toUpperCase();
               groups.push(formatted);
             }
           });
@@ -47,7 +49,10 @@ export function SelectField<T extends string | number | null>({
 
         groups.forEach((g) => {
           if (!grouped[g]) grouped[g] = [];
-          grouped[g].push({ id: id as any as T, label: val.abbreviation });
+          grouped[g].push({
+            id: id as any as T,
+            label: `${val.abbreviation} - ${val.resourceKey}`
+          });
         });
       });
 
@@ -61,12 +66,12 @@ export function SelectField<T extends string | number | null>({
 
     else if (normalized.includes("classification")) {
       const entries = ClassificationRepository.getAll();
-      setOptions(entries.map(([id, v]) => ({ id: id as any as T, label: v.abbreviation })));
+      setOptions(entries.map(([id, v]) => ({ id: id as any as T, label: `${v.abbreviation} - ${v.resourceKey}` })));
     }
 
     else if (normalized.includes("statut")) {
       const entries = StatutRepository.getAll();
-      setOptions(entries.map(([id, v]) => ({ id: id as any as T, label: v.abbreviation })));
+      setOptions(entries.map(([id, v]) => ({ id: id as any as T, label: `${v.abbreviation} - ${v.resourceKey}` })));
     }
 
   }, [label]);
@@ -88,9 +93,9 @@ export function SelectField<T extends string | number | null>({
     }, {} as Record<string, typeof options>);
 
     return Object.entries(groups).flatMap(([group, items]) => [
-      <ListSubheader key={group}>{group}</ListSubheader>,
+      <ListSubheader key={`group-${group}`}>{group}</ListSubheader>,
       ...items.map((item) => (
-        <MenuItem key={item.id} value={item.id}>
+        <MenuItem key={`${group}-${item.id}`} value={item.id}>
           {item.label}
         </MenuItem>
       )),
@@ -109,7 +114,7 @@ export function SelectField<T extends string | number | null>({
         }}
       >
         {/* ----- OPTION NULL ----- */}
-        <MenuItem value="">
+        <MenuItem key="null-option" value="">
           <em>Aucun</em>
         </MenuItem>
 
